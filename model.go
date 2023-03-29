@@ -255,6 +255,9 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
 		if m.state == deletingState {
 			switch {
+			case key.Matches(msg, m.keys.HardDelete):
+				_ = os.Remove(m.selectedSnippetFilePath())
+				fallthrough
 			case key.Matches(msg, m.keys.Confirm):
 				m.List().RemoveItem(m.List().Index())
 				m.state = navigatingState
@@ -337,7 +340,7 @@ func (m *Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		case key.Matches(msg, m.keys.DeleteSnippet):
 			m.pane = snippetPane
 			m.updateActivePane(msg)
-			m.List().Title = "Delete? (y/N)"
+			m.List().Title = "Delete? (y/N/!)"
 			return m, changeState(deletingState)
 		case key.Matches(msg, m.keys.EditSnippet):
 			return m, m.editSnippet()
@@ -651,7 +654,7 @@ func (m *Model) View() string {
 	} else if m.state == copyingState {
 		titleBar = m.ListStyle.CopiedTitleBar.Render("Copied Snippet!")
 	} else if m.state == deletingState {
-		titleBar = m.ListStyle.DeletedTitleBar.Render("Delete Snippet? (y/N)")
+		titleBar = m.ListStyle.DeletedTitleBar.Render("Delete Snippet? (y/N/!)")
 	} else if m.List().SettingFilter() {
 		titleBar = m.ListStyle.TitleBar.Render(m.List().FilterInput.View())
 	}

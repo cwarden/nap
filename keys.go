@@ -19,6 +19,7 @@ type KeyMap struct {
 	TagSnippet      key.Binding
 	SetLanguage     key.Binding
 	Confirm         key.Binding
+	HardDelete      key.Binding
 	Cancel          key.Binding
 	NextPane        key.Binding
 	PreviousPane    key.Binding
@@ -41,6 +42,7 @@ var DefaultKeyMap = KeyMap{
 	SetFolder:       key.NewBinding(key.WithKeys("R"), key.WithHelp("R", "rename folder")),
 	SetLanguage:     key.NewBinding(key.WithKeys("L"), key.WithHelp("L", "set file type")),
 	TagSnippet:      key.NewBinding(key.WithKeys("t"), key.WithHelp("t", "tag"), key.WithDisabled()),
+	HardDelete:      key.NewBinding(key.WithKeys("!"), key.WithHelp("!", "hard delete")),
 	Confirm:         key.NewBinding(key.WithKeys("y"), key.WithHelp("y", "confirm")),
 	Cancel:          key.NewBinding(key.WithKeys("N", "esc"), key.WithHelp("N", "cancel")),
 	NextPane:        key.NewBinding(key.WithKeys("tab", "right"), key.WithHelp("tab", "navigate")),

@@ -236,7 +236,7 @@ func scanSnippets(config Config, snippets []Snippet) []Snippet {
 				snippets = append(snippets, Snippet{
 					Folder:   homeEntry.Name(),
 					Date:     time.Now(),
-					Name:     folderEntry.Name(),
+					Name:     strings.TrimSuffix(folderEntry.Name(), filepath.Ext(folderEntry.Name())),
 					File:     folderEntry.Name(),
 					Language: strings.TrimPrefix(filepath.Ext(folderEntry.Name()), "."),
 				})
